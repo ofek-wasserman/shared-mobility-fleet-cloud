@@ -1,5 +1,21 @@
 # Development Changelog
 
+## Entry 006 - PR Template
+Date: 2026-02-08 20:21
+Author: Ariel
+
+Added pull request template for consistent PR reviews.
+
+---
+
+## Entry 005 - Gitignore
+Date: 2026-02-08 20:21
+Author: Ariel
+
+Added .gitignore to exclude Python cache, venv, IDE files.
+
+---
+
 ## Entry 004 - CI Pipeline
 Date: 2026-02-08 20:10
 Author: Ariel
