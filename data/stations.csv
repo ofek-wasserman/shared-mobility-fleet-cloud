@@ -1,0 +1,11 @@
+station_id,name,lat,lon,max_capacity
+1,Tel Aviv – Dizengoff Square,32.0796,34.7739,10
+2,Tel Aviv – Central Station,32.0577,34.7799,15
+3,Tel Aviv – Rothschild Blvd,32.0638,34.7745,8
+4,Tel Aviv – Carmel Market,32.0671,34.7661,6
+5,Tel Aviv – HaYarkon Park,32.0920,34.7792,12
+6,Tel Aviv – Ben Gurion Airport Road,32.0115,34.8868,8
+7,Ramat Gan – Diamond Exchange,32.0822,34.8102,10
+8,Holon – Wolfson Mall,32.0153,34.7793,8
+9,Bat Yam – BeachFront,32.0178,34.7512,6
+10,Herzliya – Marina,32.1587,34.7987,10
