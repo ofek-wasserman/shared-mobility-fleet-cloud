@@ -10,6 +10,5 @@ htmlcov
 .idea
 .DS_Store
 state.json
-data/state.json
 tests/
 docs/
