@@ -1,4 +1,4 @@
-name: Docker Build
+name: Docker Validate
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  docker-build:
+  docker-validate:
     runs-on: ubuntu-latest
 
     steps:

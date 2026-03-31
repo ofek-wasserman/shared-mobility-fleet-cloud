@@ -1,10 +1,12 @@
-name: Docker Push
+name: Publish Image
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  docker-push:
+  image-publish:
     runs-on: ubuntu-latest
 
     env:
