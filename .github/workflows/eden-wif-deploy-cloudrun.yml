@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
         inputs:
             image_tag:
-                description: "Docker image tag to deploy"
+                description: "Docker image tag or digest to deploy (for example: commit SHA or sha256:...)"
                 required: true
 
 jobs:
@@ -37,7 +37,16 @@ jobs:
 
             - name: Set image URI
               run: |
-                  echo "IMAGE_URI=${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ github.event.inputs.image_tag }}" >> "$GITHUB_ENV"
+                  INPUT="${{ github.event.inputs.image_tag }}"
+                  BASE="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}"
+
+                  if [[ "$INPUT" == sha256:* ]]; then
+                    echo "IMAGE_URI=${BASE}@${INPUT}" >> "$GITHUB_ENV"
+                  elif [[ "$INPUT" == @sha256:* ]]; then
+                    echo "IMAGE_URI=${BASE}${INPUT}" >> "$GITHUB_ENV"
+                  else
+                    echo "IMAGE_URI=${BASE}:${INPUT}" >> "$GITHUB_ENV"
+                  fi
 
             - name: Deploy to Cloud Run
               run: |
