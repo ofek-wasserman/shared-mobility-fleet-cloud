@@ -190,9 +190,9 @@ The cloud extension uses a focused CI/CD flow:
 
 2. Deploy to Cloud Run with WIF
 
-- Workflow: `.github/workflows/deploy-cloud-run.yml`
-- Purpose: authenticate with WIF (no JSON key), build/push image to Artifact Registry, and deploy to Cloud Run
-- Trigger: `workflow_dispatch`
+   - Workflow: `.github/workflows/deploy-cloud-run.yml`
+   - Purpose: authenticate with WIF (no JSON key), build/push image to Artifact Registry, and deploy to Cloud Run
+   - Trigger: `workflow_dispatch`
 
 ## Deployment Notes
 
