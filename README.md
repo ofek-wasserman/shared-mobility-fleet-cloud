@@ -124,7 +124,7 @@ Definition of DONE:
 - PR merged to main
 - CI green on main
 
-## Cloud Extension Workflow
+## Cloud Workflow
 
 Preferred deployment method is a single GitHub Actions workflow using
 Google Cloud Workload Identity Federation (WIF):
