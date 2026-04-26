@@ -202,10 +202,21 @@ WIF-based alternatives for cloud authentication are also included:
 
 These workflows were part of the academic cloud deployment extension. Future cleanup may consolidate the deployment flow into a single preferred workflow.
 
+The preferred deployment method going forward is a single GitHub Actions workflow using Google Cloud Workload Identity Federation (WIF):
+
+- Workflow: `.github/workflows/deploy-cloud-run.yml`
+- Purpose: authenticate with WIF (no JSON key), build/push image to Artifact Registry, and deploy to Cloud Run
+- Trigger: `workflow_dispatch`
+
+Legacy cloud deployment workflows are currently kept in the repository for reference and migration safety, and can be removed after migration is complete.
+
 ## Deployment Notes
 
 - The deployment region is set to `us-central1`.
-- Sensitive values are passed through GitHub Secrets.
+- Preferred auth is WIF via `google-github-actions/auth` without service account JSON keys.
+- Non-sensitive deployment settings are passed via GitHub Variables.
+- WIF identity binding values are recommended to be stored in GitHub Secrets.
+- The deployment workflow is manual-only and does not auto-run on push.
 - The deployed service is intended to expose the API through a public Cloud Run endpoint.
 - Cloud behavior is expected to match local behavior.
 
