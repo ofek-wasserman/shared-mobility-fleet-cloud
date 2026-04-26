@@ -126,27 +126,27 @@ Definition of DONE:
 
 ## Cloud Extension Workflow
 
-The cloud extension is implemented as a multi-stage CI/CD flow:
+Preferred deployment method is a single GitHub Actions workflow using
+Google Cloud Workload Identity Federation (WIF):
 
 1. Validate image build
   - Workflow: `.github/workflows/docker-validate.yml`
   - Purpose: verify Docker image build succeeds
 
-2. Publish image to Artifact Registry
-  - Workflow: `.github/workflows/image-publish.yml`
-  - Purpose: build and push image to GCP Artifact Registry
+2. Build, push, and deploy with WIF
+  - Workflow: `.github/workflows/deploy-cloud-run.yml`
+  - Purpose: authenticate with WIF (no JSON key), build/push image to Artifact Registry, and deploy to Cloud Run
+  - Trigger: `workflow_dispatch`
 
-3. Deploy image to Cloud Run
-  - Workflow: `.github/workflows/cloudrun-deploy.yml`
-  - Purpose: deploy a chosen image tag to Cloud Run
-
-WIF-based alternatives for cloud auth are also provided:
-- `.github/workflows/eden-wif-gcp-deployment.yml`
-- `.github/workflows/eden-wif-deploy-cloudrun.yml`
+Legacy cloud deployment workflows are currently kept in the repository for
+reference and migration safety, and can be removed after migration is complete.
 
 ## Deployment Notes
 
 - Region is set to `us-central1` to stay aligned with course cost guidelines.
-- Sensitive values are passed via GitHub Secrets.
+- Preferred auth is WIF via `google-github-actions/auth` without service account JSON keys.
+- Non-sensitive deployment settings are passed via GitHub Variables.
+- WIF identity binding values are recommended to be stored in GitHub Secrets.
+- The deployment workflow is manual-only and does not auto-run on push.
 - Deployment is done to a public Cloud Run service endpoint.
 - API behavior in cloud is expected to match local behavior.
