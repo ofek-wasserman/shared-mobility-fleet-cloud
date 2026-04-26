@@ -173,8 +173,7 @@ It includes:
    - The application is packaged as a Docker image.
 
 2. GitHub Actions CI/CD workflows  
-   - Workflows validate the Docker image build.
-   - Additional workflows support publishing images and deploying to Cloud Run.
+   - Workflows validate the Docker image build and deploy to Cloud Run using WIF.
 
 3. Google Artifact Registry  
    - Docker images can be pushed to Artifact Registry.
@@ -184,31 +183,16 @@ It includes:
 
 ## Cloud Extension Workflows
 
-The cloud extension includes a multi-stage CI/CD flow:
+The cloud extension uses a focused CI/CD flow:
 
 1. Validate Docker image build  
    - Workflow: `.github/workflows/docker-validate.yml`
 
-2. Publish image to Artifact Registry  
-   - Workflow: `.github/workflows/image-publish.yml`
+2. Deploy to Cloud Run with WIF
 
-3. Deploy image to Cloud Run  
-   - Workflow: `.github/workflows/cloudrun-deploy.yml`
-
-WIF-based alternatives for cloud authentication are also included:
-
-- `.github/workflows/eden-wif-gcp-deployment.yml`
-- `.github/workflows/eden-wif-deploy-cloudrun.yml`
-
-These workflows were part of the academic cloud deployment extension. Future cleanup may consolidate the deployment flow into a single preferred workflow.
-
-The preferred deployment method going forward is a single GitHub Actions workflow using Google Cloud Workload Identity Federation (WIF):
-
-- Workflow: `.github/workflows/deploy-cloud-run.yml`
-- Purpose: authenticate with WIF (no JSON key), build/push image to Artifact Registry, and deploy to Cloud Run
-- Trigger: `workflow_dispatch`
-
-Legacy cloud deployment workflows are currently kept in the repository for reference and migration safety, and can be removed after migration is complete.
+   - Workflow: `.github/workflows/deploy-cloud-run.yml`
+   - Purpose: authenticate with WIF (no JSON key), build/push image to Artifact Registry, and deploy to Cloud Run
+   - Trigger: `workflow_dispatch`
 
 ## Deployment Notes
 
@@ -240,4 +224,3 @@ https://fleet-api-otq3yt33kq-uc.a.run.app/docs
 
 - Initial system data is loaded from CSV files in the `data/` directory.
 - Runtime state is persisted in `state.json`.
-- Some deployment workflows reflect alternative approaches explored during the cloud extension and may be consolidated in future personal development.
